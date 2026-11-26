@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/logo.png" width="128" alt="churn-insight-platform logo"></p>
+
 # churn-insight-platform
 
 End-to-end customer-churn data science platform on real telecom operator data: cleaning,
