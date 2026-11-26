@@ -60,5 +60,3 @@ matrix and ROC curves, and a live scoring form. See `results/dashboard.png`.
 Python, scikit-learn, pandas, FastAPI, Streamlit, Plotly, PostgreSQL (Docker) / SQLite,
 pytest, GitHub Actions CI.
 
-## CI
-The GitHub Actions workflow is stored at `ci/github-actions-ci.yml`. Copy it to `.github/workflows/ci.yml` to enable it.
