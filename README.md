@@ -11,7 +11,7 @@ commands shown, not targets.
 
 ## Dataset
 Iranian Churn Dataset (UCI ML Repository #563) - the complete dataset of 3,150 real
-customers from an Iranian telecom operator, 13 usage attributes + churn label
+customers from an Iranian telecom operator, 13 usage attributes + churn label (the models use 15 features: these plus 2 engineered ones)
 (15.7% churn rate). Source: archive.ics.uci.edu/dataset/563. Included in `data/`.
 
 ## Real results (held-out 25%, 788 customers, stratified split, seed 42)
@@ -19,10 +19,15 @@ customers from an Iranian telecom operator, 13 usage attributes + churn label
 |---|---|---|---|
 | histogram gradient boosting (selected) | 0.9924 | 0.9636 | 96.3% |
 | random forest (400 trees, balanced) | 0.9856 | 0.8997 | 95.2% |
-| logistic regression | 0.9615 | 0.8068 | 89.3% |
+| logistic regression | 0.9193 | 0.7382 | 89.3% |
 
-No leakage: only pre-churn usage aggregates are used (call failures, complaints,
-subscription length, usage volumes, customer value); no IDs or post-churn fields.
+Leakage check: no IDs or post-churn fields are used. Two columns are close to the outcome,
+though: `Status` (active / non-active) and `Complains`. Re-running the gradient-boosting
+model on the same split without them still gives ROC-AUC 0.990 (0.990 without both,
+accuracy 95.4%), so the score does not depend on them, but treat them as near-outcome
+signals in a real deployment. The best of the three models was picked by its score on the
+same held-out 25% (there is no separate validation split), so the 96.3% is slightly
+optimistic.
 Confusion matrices and top features: `results/metrics.json`, `results/feature_importance.png`.
 
 ## Run locally (no Docker)
